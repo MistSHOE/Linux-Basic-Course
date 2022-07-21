@@ -1,0 +1,89 @@
+2. Конвейер (pipeline). 
+Использовать команду cut на вывод длинного списка каталога, 
+чтобы отобразить только права доступа к файлам. 
+Затем отправить в конвейере этот вывод на sort и uniq, чтобы отфильтровать все повторяющиеся строки.
+
+
+
+
+mist@mist-VirtualBox:~/lesson$ ls -l /etc | cat > task_2.txt
+mist@mist-VirtualBox:~/lesson$ ls
+task_1  task_1_errors  task_1_errors.txt  task_1.txt  task_2.txt
+mist@mist-VirtualBox:~/lesson$ head task_2.txt
+итого 1108
+drwxr-xr-x  3 root root    4096 авг 19  2021 acpi
+-rw-r--r--  1 root root    3028 авг 19  2021 adduser.conf
+drwxr-xr-x  3 root root    4096 авг 19  2021 alsa
+drwxr-xr-x  2 root root    4096 фев 25 13:12 alternatives
+-rw-r--r--  1 root root     401 июл 16  2019 anacrontab
+-rw-r--r--  1 root root     433 окт  2  2017 apg.conf
+drwxr-xr-x  5 root root    4096 авг 19  2021 apm
+drwxr-xr-x  3 root root    4096 авг 19  2021 apparmor
+drwxr-xr-x  6 root root    4096 фев 26 16:11 apparmor.d
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ cat -n task_2.txt | uniq -u | head
+     1  итого 1108
+     2  drwxr-xr-x  3 root root    4096 авг 19  2021 acpi
+     3  -rw-r--r--  1 root root    3028 авг 19  2021 adduser.conf
+     4  drwxr-xr-x  3 root root    4096 авг 19  2021 alsa
+     5  drwxr-xr-x  2 root root    4096 фев 25 13:12 alternatives
+     6  -rw-r--r--  1 root root     401 июл 16  2019 anacrontab
+     7  -rw-r--r--  1 root root     433 окт  2  2017 apg.conf
+     8  drwxr-xr-x  5 root root    4096 авг 19  2021 apm
+     9  drwxr-xr-x  3 root root    4096 авг 19  2021 apparmor
+    10  drwxr-xr-x  6 root root    4096 фев 26 16:11 apparmor.d
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ cat -n task_2.txt | uniq -u | sort | head
+   100  drwxr-xr-x  2 root root    4096 мар  5 15:41 ld.so.conf.d
+   101  -rw-r--r--  1 root root     267 дек  5  2019 legal
+   102  -rw-r--r--  1 root root      27 янв 18  2018 libao.conf
+   103  -rw-r--r--  1 root root     191 фев 18  2020 libaudit.conf
+   104  drwxr-xr-x  3 root root    4096 авг 19  2021 libblockdev
+   105  drwxr-xr-x  2 root root    4096 авг 19  2021 libnl-3
+   106  drwxr-xr-x  2 root root    4096 июн 26  2019 libpaper.d
+   107  drwxr-xr-x  2 root root    4096 фев 26 16:04 libreoffice
+   108  -rw-r--r--  1 root root    2996 апр 14  2020 locale.alias
+   109  -rw-r--r--  1 root root    9438 мар  5 15:39 locale.gen
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ cut -d ' ' -f 1 task_2.txt | head
+итого
+drwxr-xr-x
+-rw-r--r--
+drwxr-xr-x
+drwxr-xr-x
+-rw-r--r--
+-rw-r--r--
+drwxr-xr-x
+drwxr-xr-x
+drwxr-xr-x
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ cut -d ' ' -f 1 task_2.txt | cat -n | uniq -u | head
+     1  итого
+     2  drwxr-xr-x
+     3  -rw-r--r--
+     4  drwxr-xr-x
+     5  drwxr-xr-x
+     6  -rw-r--r--
+     7  -rw-r--r--
+     8  drwxr-xr-x
+     9  drwxr-xr-x
+    10  drwxr-xr-x
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ cut -d ' ' -f 1 task_2.txt | cat -n | uniq -u | sort | head
+   100  drwxr-xr-x
+   101  -rw-r--r--
+   102  -rw-r--r--
+   103  -rw-r--r--
+   104  drwxr-xr-x
+   105  drwxr-xr-x
+   106  drwxr-xr-x
+   107  drwxr-xr-x
+   108  -rw-r--r--
+   109  -rw-r--r--
+mist@mist-VirtualBox:~/lesson$
+

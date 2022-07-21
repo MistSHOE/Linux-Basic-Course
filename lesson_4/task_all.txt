@@ -1,0 +1,286 @@
+1. Потоки ввода/вывода. 
+ Создать файл, используя команду echo. 
+Используя команду cat, прочитать содержимое всех файлов каталога etc, ошибки перенаправить в отдельный файл.
+
+
+
+
+mist@mist-VirtualBox:~/lesson$ echo Первое задание > task_1
+mist@mist-VirtualBox:~/lesson$ echo Ошибки > task_1_errors
+mist@mist-VirtualBox:~/lesson$ ls
+task_1  task_1_errors
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ find /etc/* -type f 1> task_1.txt 2> task_1_errors.txt
+mist@mist-VirtualBox:~/lesson$ find /etc/* -type f 1>> task_1.txt 2>> task_1_errors.txt
+mist@mist-VirtualBox:~/lesson$ head task_1.txt
+/etc/acpi/events/asus-wireless-off
+/etc/acpi/events/asus-keyboard-backlight-up
+/etc/acpi/events/ibm-wireless
+/etc/acpi/events/thinkpad-cmos
+/etc/acpi/events/asus-keyboard-backlight-down
+/etc/acpi/events/tosh-wireless
+/etc/acpi/events/asus-wireless-on
+/etc/acpi/events/lenovo-undock
+/etc/acpi/undock.sh
+/etc/acpi/asus-keyboard-backlight.sh
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ head task_1_errors.txt
+-bash: mist@mist-VirtualBox:~/lesson$: Нет такого файла или каталога
+-bash: mist@mist-VirtualBox:~/lesson$: Нет такого файла или каталога
+find: ‘/etc/cups/ssl’: Отказано в доступе
+find: ‘/etc/polkit-1/localauthority’: Отказано в доступе
+find: ‘/etc/ssl/private’: Отказано в доступе
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ cat task_1.txt >> task_1
+mist@mist-VirtualBox:~/lesson$ head task_1
+Первое задание
+/etc/acpi/events/asus-wireless-off
+/etc/acpi/events/asus-keyboard-backlight-up
+/etc/acpi/events/ibm-wireless
+/etc/acpi/events/thinkpad-cmos
+/etc/acpi/events/asus-keyboard-backlight-down
+/etc/acpi/events/tosh-wireless
+/etc/acpi/events/asus-wireless-on
+/etc/acpi/events/lenovo-undock
+/etc/acpi/undock.sh
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ ls
+task_1  task_1_errors  task_1_errors.txt  task_1.txt
+mist@mist-VirtualBox:~/lesson$ cat task_1_errors.txt >> task_1_errors
+mist@mist-VirtualBox:~/lesson$ head task_1_errors
+Ошибки
+-bash: mist@mist-VirtualBox:~/lesson$: Нет такого файла или каталога
+-bash: mist@mist-VirtualBox:~/lesson$: Нет такого файла или каталога
+find: ‘/etc/cups/ssl’: Отказано в доступе
+find: ‘/etc/polkit-1/localauthority’: Отказано в доступе
+find: ‘/etc/ssl/private’: Отказано в доступе
+-bash: mist@mist-VirtualBox:~/lesson$: Нет такого файла или каталога
+-bash: mist@mist-VirtualBox:~/lesson$: Нет такого файла или каталога
+find: ‘/etc/cups/ssl’: Отказано в доступе
+find: ‘/etc/polkit-1/localauthority’: Отказано в доступе
+mist@mist-VirtualBox:~/lesson$
+
+
+
+
+2. Конвейер (pipeline). 
+Использовать команду cut на вывод длинного списка каталога, 
+чтобы отобразить только права доступа к файлам. 
+Затем отправить в конвейере этот вывод на sort и uniq, чтобы отфильтровать все повторяющиеся строки.
+
+
+
+
+mist@mist-VirtualBox:~/lesson$ ls -l /etc | cat > task_2.txt
+mist@mist-VirtualBox:~/lesson$ ls
+task_1  task_1_errors  task_1_errors.txt  task_1.txt  task_2.txt
+mist@mist-VirtualBox:~/lesson$ head task_2.txt
+итого 1108
+drwxr-xr-x  3 root root    4096 авг 19  2021 acpi
+-rw-r--r--  1 root root    3028 авг 19  2021 adduser.conf
+drwxr-xr-x  3 root root    4096 авг 19  2021 alsa
+drwxr-xr-x  2 root root    4096 фев 25 13:12 alternatives
+-rw-r--r--  1 root root     401 июл 16  2019 anacrontab
+-rw-r--r--  1 root root     433 окт  2  2017 apg.conf
+drwxr-xr-x  5 root root    4096 авг 19  2021 apm
+drwxr-xr-x  3 root root    4096 авг 19  2021 apparmor
+drwxr-xr-x  6 root root    4096 фев 26 16:11 apparmor.d
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ cat -n task_2.txt | uniq -u | head
+     1  итого 1108
+     2  drwxr-xr-x  3 root root    4096 авг 19  2021 acpi
+     3  -rw-r--r--  1 root root    3028 авг 19  2021 adduser.conf
+     4  drwxr-xr-x  3 root root    4096 авг 19  2021 alsa
+     5  drwxr-xr-x  2 root root    4096 фев 25 13:12 alternatives
+     6  -rw-r--r--  1 root root     401 июл 16  2019 anacrontab
+     7  -rw-r--r--  1 root root     433 окт  2  2017 apg.conf
+     8  drwxr-xr-x  5 root root    4096 авг 19  2021 apm
+     9  drwxr-xr-x  3 root root    4096 авг 19  2021 apparmor
+    10  drwxr-xr-x  6 root root    4096 фев 26 16:11 apparmor.d
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ cat -n task_2.txt | uniq -u | sort | head
+   100  drwxr-xr-x  2 root root    4096 мар  5 15:41 ld.so.conf.d
+   101  -rw-r--r--  1 root root     267 дек  5  2019 legal
+   102  -rw-r--r--  1 root root      27 янв 18  2018 libao.conf
+   103  -rw-r--r--  1 root root     191 фев 18  2020 libaudit.conf
+   104  drwxr-xr-x  3 root root    4096 авг 19  2021 libblockdev
+   105  drwxr-xr-x  2 root root    4096 авг 19  2021 libnl-3
+   106  drwxr-xr-x  2 root root    4096 июн 26  2019 libpaper.d
+   107  drwxr-xr-x  2 root root    4096 фев 26 16:04 libreoffice
+   108  -rw-r--r--  1 root root    2996 апр 14  2020 locale.alias
+   109  -rw-r--r--  1 root root    9438 мар  5 15:39 locale.gen
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ cut -d ' ' -f 1 task_2.txt | head
+итого
+drwxr-xr-x
+-rw-r--r--
+drwxr-xr-x
+drwxr-xr-x
+-rw-r--r--
+-rw-r--r--
+drwxr-xr-x
+drwxr-xr-x
+drwxr-xr-x
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ cut -d ' ' -f 1 task_2.txt | cat -n | uniq -u | head
+     1  итого
+     2  drwxr-xr-x
+     3  -rw-r--r--
+     4  drwxr-xr-x
+     5  drwxr-xr-x
+     6  -rw-r--r--
+     7  -rw-r--r--
+     8  drwxr-xr-x
+     9  drwxr-xr-x
+    10  drwxr-xr-x
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ cut -d ' ' -f 1 task_2.txt | cat -n | uniq -u | sort | head
+   100  drwxr-xr-x
+   101  -rw-r--r--
+   102  -rw-r--r--
+   103  -rw-r--r--
+   104  drwxr-xr-x
+   105  drwxr-xr-x
+   106  drwxr-xr-x
+   107  drwxr-xr-x
+   108  -rw-r--r--
+   109  -rw-r--r--
+mist@mist-VirtualBox:~/lesson$
+
+
+
+
+3. Управление процессами.) 
+Изменить конфигурационный файл службы SSH: /etc/ssh/sshd_config, 
+отключив аутентификацию по паролю PasswordAuthentication no. 
+Выполните рестарт службы systemctl restart sshd (service sshd restart), 
+верните аутентификацию по паролю, выполните reload службы systemctl reload sshd (services sshd reload). 
+В чём различие между действиями restart и reload? 
+Создайте файл при помощи команды cat > file_name, напишите текст и завершите комбинацией ctrl+d. Какой сигнал передадим процессу?
+
+Отвечая на вопросы с Шубиным )) - restart -> Это когда мы выключаем полностью и включаем заного,
+при этом все службы и тд стартуют с 0, в случаее с сервером может занять много времени и сервер упадет.
+(или так: Поступает сигнал всем бросить все и после этого начать заного)
+				- reload -> Это когда часть служб остаються в работе, а часть уходит на обновление, перезагрузку, и тд, если у них есть такая возможность.
+(или так: Поступает сигнал перезагрузиться и службы сами решают могут они или нет)
+ps. я понял это так.
+
+				- cat > file_name -> тут получаеться мы выходим без сохранения,
+если выбирать из двух, то ближе restart.
+
+
+mist@mist-VirtualBox:~/lesson$ nano /etc/ssh/sshd_config
+mist@mist-VirtualBox:~/lesson$ sudo nano /etc/ssh/sshd_config
+[sudo] пароль для mist:
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ systemctl status ssh
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
+     Active: active (running) since Thu 2022-03-10 11:58:04 MSK; 6h ago
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+   Main PID: 722 (sshd)
+      Tasks: 1 (limit: 2295)
+     Memory: 5.1M
+     CGroup: /system.slice/ssh.service
+             └─722 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+
+мар 10 11:58:36 mist-VirtualBox sshd[835]: pam_unix(sshd:auth): authentication failure; >
+мар 10 11:58:38 mist-VirtualBox sshd[835]: Failed password for invalid user Mist from 19>
+мар 10 11:58:44 mist-VirtualBox sshd[835]: pam_unix(sshd:auth): check pass; user unknown
+мар 10 11:58:46 mist-VirtualBox sshd[835]: Failed password for invalid user Mist from 19>
+мар 10 11:58:51 mist-VirtualBox sshd[835]: Connection closed by invalid user Mist 192.16>
+мар 10 11:58:51 mist-VirtualBox sshd[835]: PAM 1 more authentication failure; logname= u>
+мар 10 11:58:59 mist-VirtualBox sshd[1096]: Accepted password for mist from 192.168.0.10>
+мар 10 11:58:59 mist-VirtualBox sshd[1096]: pam_unix(sshd:session): session opened for u>
+мар 10 18:11:15 mist-VirtualBox sshd[3810]: Accepted password for mist from 192.168.0.10>
+мар 10 18:11:15 mist-VirtualBox sshd[3810]: pam_unix(sshd:session): session opened for u>
+
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ systemctl restart ssh
+==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
+Чтобы перезапустить «ssh.service», необходимо пройти аутентификацию.
+Authenticating as: mist,,, (mist)
+Password:
+==== AUTHENTICATION COMPLETE ===
+
+mist@mist-VirtualBox:~/lesson$ systemctl reload ssh
+==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
+Чтобы заставить «ssh.service» перечитать конфигурацию, необходимо пройти аутентификацию.
+Authenticating as: mist,,, (mist)
+Password:
+
+mist@mist-VirtualBox:~/lesson$ cat > file_name
+Hello worldmist@mist-VirtualBox:~/lesson$
+mist@mist-VirtualBox:~/lesson$
+
+
+
+
+4. Сигналы процессам. 
+Запустите mc. Используя ps, найдите PID процесса, завершите процесс, передав ему сигнал 9.
+
+
+mist@mist-VirtualBox:~/lesson$ mc
+
+Команда «mc» не найдена, но может быть установлена с помощью:
+
+sudo apt install mc
+
+mist@mist-VirtualBox:~/lesson$ sudo apt install mc
+Чтение списков пакетов… Готово
+Построение дерева зависимостей
+Чтение информации о состоянии… Готово
+Будут установлены следующие дополнительные пакеты:
+  libssh2-1 mc-data
+Предлагаемые пакеты:
+  arj catdvi | texlive-binaries dbview djvulibre-bin epub-utils gv imagemagick
+  libaspell-dev links | w3m | lynx odt2txt python python-boto python-tz
+Следующие НОВЫЕ пакеты будут установлены:
+  libssh2-1 mc mc-data
+Обновлено 0 пакетов, установлено 3 новых пакетов, для удаления отмечено 0 пакетов, и 115 пакетов не обновлено.
+Необходимо скачать 1 817 kB архивов.
+После данной операции объём занятого дискового пространства возрастёт на 7 994 kB.
+Хотите продолжить? [Д/н] д
+Пол:1 http://ru.archive.ubuntu.com/ubuntu focal/universe amd64 libssh2-1 amd64 1.8.0-2.1build1 [75,4 kB]
+Пол:2 http://ru.archive.ubuntu.com/ubuntu focal/universe amd64 mc-data all 3:4.8.24-2ubuntu1 [1 265 kB]
+Пол:3 http://ru.archive.ubuntu.com/ubuntu focal/universe amd64 mc amd64 3:4.8.24-2ubuntu1 [477 kB]
+Получено 1 817 kB за 0с (6 171 kB/s)
+Выбор ранее не выбранного пакета libssh2-1:amd64.
+(Чтение базы данных … на данный момент установлено 188017 файлов и каталогов.)
+Подготовка к распаковке …/libssh2-1_1.8.0-2.1build1_amd64.deb …
+Распаковывается libssh2-1:amd64 (1.8.0-2.1build1) …
+Выбор ранее не выбранного пакета mc-data.
+Подготовка к распаковке …/mc-data_3%3a4.8.24-2ubuntu1_all.deb …
+Распаковывается mc-data (3:4.8.24-2ubuntu1) …
+Выбор ранее не выбранного пакета mc.
+Подготовка к распаковке …/mc_3%3a4.8.24-2ubuntu1_amd64.deb …
+Распаковывается mc (3:4.8.24-2ubuntu1) …
+Настраивается пакет mc-data (3:4.8.24-2ubuntu1) …
+Настраивается пакет libssh2-1:amd64 (1.8.0-2.1build1) …
+Настраивается пакет mc (3:4.8.24-2ubuntu1) …
+update-alternatives: используется /usr/bin/mcview для предоставления /usr/bin/view (view) в автоматическом режиме
+Обрабатываются триггеры для libc-bin (2.31-0ubuntu9.7) …
+Обрабатываются триггеры для man-db (2.9.1-1) …
+Обрабатываются триггеры для desktop-file-utils (0.24-1ubuntu3) …
+Обрабатываются триггеры для mime-support (3.64ubuntu1) …
+Обрабатываются триггеры для hicolor-icon-theme (0.17-2) …
+Обрабатываются триггеры для gnome-menus (3.36.0-1ubuntu1) …
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ mc
+
+mist@mist-VirtualBox:~/lesson$ killall mc
+Завершено
+mist@mist-VirtualBox:~/lesson$

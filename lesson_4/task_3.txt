@@ -1,0 +1,65 @@
+3. Управление процессами.) 
+Изменить конфигурационный файл службы SSH: /etc/ssh/sshd_config, 
+отключив аутентификацию по паролю PasswordAuthentication no. 
+Выполните рестарт службы systemctl restart sshd (service sshd restart), 
+верните аутентификацию по паролю, выполните reload службы systemctl reload sshd (services sshd reload). 
+В чём различие между действиями restart и reload? 
+Создайте файл при помощи команды cat > file_name, напишите текст и завершите комбинацией ctrl+d. Какой сигнал передадим процессу?
+
+Отвечая на вопросы с Шубиным )) - restart -> Это когда мы выключаем полностью и включаем заного,
+при этом все службы и тд стартуют с 0, в случаее с сервером может занять много времени и сервер упадет.
+(или так: Поступает сигнал всем бросить все и после этого начать заного)
+				- reload -> Это когда часть служб остаються в работе, а часть уходит на обновление, перезагрузку, и тд, если у них есть такая возможность.
+(или так: Поступает сигнал перезагрузиться и службы сами решают могут они или нет)
+ps. я понял это так.
+
+				- cat > file_name -> тут получаеться мы выходим без сохранения, если выбирать из двух,
+то ближе restart.
+
+
+mist@mist-VirtualBox:~/lesson$ nano /etc/ssh/sshd_config
+mist@mist-VirtualBox:~/lesson$ sudo nano /etc/ssh/sshd_config
+[sudo] пароль для mist:
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ systemctl status ssh
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
+     Active: active (running) since Thu 2022-03-10 11:58:04 MSK; 6h ago
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+   Main PID: 722 (sshd)
+      Tasks: 1 (limit: 2295)
+     Memory: 5.1M
+     CGroup: /system.slice/ssh.service
+             └─722 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+
+мар 10 11:58:36 mist-VirtualBox sshd[835]: pam_unix(sshd:auth): authentication failure; >
+мар 10 11:58:38 mist-VirtualBox sshd[835]: Failed password for invalid user Mist from 19>
+мар 10 11:58:44 mist-VirtualBox sshd[835]: pam_unix(sshd:auth): check pass; user unknown
+мар 10 11:58:46 mist-VirtualBox sshd[835]: Failed password for invalid user Mist from 19>
+мар 10 11:58:51 mist-VirtualBox sshd[835]: Connection closed by invalid user Mist 192.16>
+мар 10 11:58:51 mist-VirtualBox sshd[835]: PAM 1 more authentication failure; logname= u>
+мар 10 11:58:59 mist-VirtualBox sshd[1096]: Accepted password for mist from 192.168.0.10>
+мар 10 11:58:59 mist-VirtualBox sshd[1096]: pam_unix(sshd:session): session opened for u>
+мар 10 18:11:15 mist-VirtualBox sshd[3810]: Accepted password for mist from 192.168.0.10>
+мар 10 18:11:15 mist-VirtualBox sshd[3810]: pam_unix(sshd:session): session opened for u>
+
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ systemctl restart ssh
+==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
+Чтобы перезапустить «ssh.service», необходимо пройти аутентификацию.
+Authenticating as: mist,,, (mist)
+Password:
+==== AUTHENTICATION COMPLETE ===
+
+mist@mist-VirtualBox:~/lesson$ systemctl reload ssh
+==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
+Чтобы заставить «ssh.service» перечитать конфигурацию, необходимо пройти аутентификацию.
+Authenticating as: mist,,, (mist)
+Password:
+
+mist@mist-VirtualBox:~/lesson$ cat > file_name
+Hello worldmist@mist-VirtualBox:~/lesson$
+mist@mist-VirtualBox:~/lesson$

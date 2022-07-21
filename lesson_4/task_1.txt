@@ -1,0 +1,64 @@
+1. Потоки ввода/вывода. 
+ Создать файл, используя команду echo. 
+Используя команду cat, прочитать содержимое всех файлов каталога etc, ошибки перенаправить в отдельный файл.
+
+
+
+mist@mist-VirtualBox:~/lesson$ echo Первое задание > task_1
+mist@mist-VirtualBox:~/lesson$ echo Ошибки > task_1_errors
+mist@mist-VirtualBox:~/lesson$ ls
+task_1  task_1_errors
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ find /etc/* -type f 1> task_1.txt 2> task_1_errors.txt
+mist@mist-VirtualBox:~/lesson$ find /etc/* -type f 1>> task_1.txt 2>> task_1_errors.txt
+mist@mist-VirtualBox:~/lesson$ head task_1.txt
+/etc/acpi/events/asus-wireless-off
+/etc/acpi/events/asus-keyboard-backlight-up
+/etc/acpi/events/ibm-wireless
+/etc/acpi/events/thinkpad-cmos
+/etc/acpi/events/asus-keyboard-backlight-down
+/etc/acpi/events/tosh-wireless
+/etc/acpi/events/asus-wireless-on
+/etc/acpi/events/lenovo-undock
+/etc/acpi/undock.sh
+/etc/acpi/asus-keyboard-backlight.sh
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ head task_1_errors.txt
+-bash: mist@mist-VirtualBox:~/lesson$: Нет такого файла или каталога
+-bash: mist@mist-VirtualBox:~/lesson$: Нет такого файла или каталога
+find: ‘/etc/cups/ssl’: Отказано в доступе
+find: ‘/etc/polkit-1/localauthority’: Отказано в доступе
+find: ‘/etc/ssl/private’: Отказано в доступе
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ cat task_1.txt >> task_1
+mist@mist-VirtualBox:~/lesson$ head task_1
+Первое задание
+/etc/acpi/events/asus-wireless-off
+/etc/acpi/events/asus-keyboard-backlight-up
+/etc/acpi/events/ibm-wireless
+/etc/acpi/events/thinkpad-cmos
+/etc/acpi/events/asus-keyboard-backlight-down
+/etc/acpi/events/tosh-wireless
+/etc/acpi/events/asus-wireless-on
+/etc/acpi/events/lenovo-undock
+/etc/acpi/undock.sh
+mist@mist-VirtualBox:~/lesson$
+
+mist@mist-VirtualBox:~/lesson$ ls
+task_1  task_1_errors  task_1_errors.txt  task_1.txt
+mist@mist-VirtualBox:~/lesson$ cat task_1_errors.txt >> task_1_errors
+mist@mist-VirtualBox:~/lesson$ head task_1_errors
+Ошибки
+-bash: mist@mist-VirtualBox:~/lesson$: Нет такого файла или каталога
+-bash: mist@mist-VirtualBox:~/lesson$: Нет такого файла или каталога
+find: ‘/etc/cups/ssl’: Отказано в доступе
+find: ‘/etc/polkit-1/localauthority’: Отказано в доступе
+find: ‘/etc/ssl/private’: Отказано в доступе
+-bash: mist@mist-VirtualBox:~/lesson$: Нет такого файла или каталога
+-bash: mist@mist-VirtualBox:~/lesson$: Нет такого файла или каталога
+find: ‘/etc/cups/ssl’: Отказано в доступе
+find: ‘/etc/polkit-1/localauthority’: Отказано в доступе
+mist@mist-VirtualBox:~/lesson$

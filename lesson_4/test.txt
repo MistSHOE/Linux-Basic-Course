@@ -1,0 +1,96 @@
+1. Потоки ввода/вывода. 
+ Создать файл, используя команду echo. 
+Используя команду cat, прочитать содержимое всех файлов каталога etc, ошибки перенаправить в отдельный файл.
+
+echo
+echo first line > test1 
+echo second line > test2
+echo third line > test3
+echo my text line > test1 | test2 | test3
+more test1
+more test2
+more test3
+
+cat
+cat --help
+cat test1 
+cat test1 test2 test3 
+cat *
+cat test1 test2 test3 > my_test
+cat > me_text.txt ( вводим данные )
+cat >> me_text.txt (дописать в конец файла)
+
+wc
+wc --help
+
+
+
+
+
+
+2. Конвейер (pipeline). 
+Использовать команду cut на вывод длинного списка каталога, 
+чтобы отобразить только права доступа к файлам. 
+Затем отправить в конвейере этот вывод на sort и uniq, чтобы отфильтровать все повторяющиеся строки.
+
+ls | wc -w
+man wc
+man wc > text_command.txt
+man wc | head > text_command.txt
+cat ~/text_command.txt | grep -o 'hello' | wc -l  (ищем слова в файлах)
+cat ~/text_command.txt | grep -o 'hello' | wc -w  (количество слов в файлах)
+
+find / -name *.py -type f > result.txt (запишит в файл, файлы с расширением .py)
+find / -name *.py -type f 1 > result.txt 2 > errors.txt (запишим разные потоки в разные файлы)
+find / -name *.py -type f 1> all_result.txt 2>&1 (объединяем потоки в один файл)
+
+
+3. Управление процессами.) 
+Изменить конфигурационный файл службы SSH: /etc/ssh/sshd_config, 
+отключив аутентификацию по паролю PasswordAuthentication no. 
+Выполните рестарт службы systemctl restart sshd (service sshd restart), 
+верните аутентификацию по паролю, выполните reload службы systemctl reload sshd (services sshd reload). 
+В чём различие между действиями restart и reload? 
+Создайте файл при помощи команды cat > file_name, напишите текст и завершите комбинацией ctrl+d. Какой сигнал передадим процессу?
+
+top 
+(k (kill) вводим PID)
+(w отображение ввиде)  
+top -o PID (сортировка)
+top -o -PID (сортировка)m
+
+top -u mist (сортировка по пользователю)
+
+htop
+sudo apt install htop
+
+
+
+
+
+
+4. Сигналы процессам. 
+Запустите mc. Используя ps, найдите PID процесса, завершите процесс, передав ему сигнал 9.
+
+ps
+ps 1
+ps aux
+ps aux | wc -l
+ps aux | grep __ ищем что надо 
+
+df 
+df --help
+df -h
+
+du (информация о размере файла)
+du -h
+du ~ 
+du -ch *.txt
+du -sh --excledu = "*.txt" (все кроме текстовых файлах)
+
+systemclt
+systemctl status ssh
+systemctl reload
+systemctl restart - после id процесса меняеться 
+
+
