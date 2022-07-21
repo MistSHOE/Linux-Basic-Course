@@ -1,0 +1,31 @@
+1. Вывести на экран 3 раза имя пользователя, от которого запускается команда.
+
+открыть текстовый файл в командной строке (nano script_lesson_6.sh), 
+
+далее #! /bin/bash
+
+echo " name: " $USER
+echo " name: " $USER
+echo " name: " $USER
+cat script_lesson_6.sh
+bash script_lesson_6.sh
+
+открыть текстовый файл в командной строке (nano script_lesson_6.sh), 
+
+далее #! /bin/bash
+
+echo " name: " $USER
+echo " name: " $USER
+echo " name: " $USER
+cat script_lesson_6.sh
+bash script_lesson_6.sh
+
+даем права на исполнение файла chmod u+x script_lesson_6.sh
+(путь к файлу) script_lesson_6.sh
+
+Найти путь к файлу (whereis (файл))
+
+даем права на исполнение файла chmod u+x script_lesson_6.sh
+(путь к файлу) script_lesson_6.sh
+
+
