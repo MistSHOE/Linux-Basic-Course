@@ -1,0 +1,107 @@
+1. Переустановить операционную систему (по желанию, для дополнительной практики)
+Сделал )
+mist@mist-VirtualBox:~$ uname -a
+Linux mist-VirtualBox 5.13.0-37-generic #42~20.04.1-Ubuntu SMP Tue Apr 1 15:44:                                  28 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+mist@mist-VirtualBox:~$
+
+
+
+2. Подключить репозиторий Docker.
+
+mist@mist-VirtualBox:~$ sudo apt install apt-transport-https ca-certificates curl software-properties-common
+Чтение списков пакетов… Готово
+Построение дерева зависимостей
+Чтение информации о состоянии… Готово
+
+(Много текста про пакеты ... )
+
+mist@mist-VirtualBox:~$ sudo apt install docker.io
+[sudo] пароль для mist:
+Чтение списков пакетов… Готово
+Построение дерева зависимостей
+Чтение информации о состоянии… Готово
+
+(Много текста про пакеты ... )
+
+
+mist@mist-VirtualBox:~$ sudo service docker restart
+mist@mist-VirtualBox:~$ sudo docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+
+mist@mist-VirtualBox:~$ sudo usermod -aG docker $(whoami)
+mist@mist-VirtualBox:~$ sudo systemctl status docker
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+     Active: active (running) since Thu 2022-04-07 18:05:04 MSK; 20min ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 2880 (dockerd)
+      Tasks: 8
+     Memory: 39.4M
+     CGroup: /system.slice/docker.service
+             └─2880 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+апр 07 18:05:04 mist-VirtualBox dockerd[2880]: time="2022-04-07T18:05:04.261991681+03:00" level=warning msg="Your>
+апр 07 18:05:04 mist-VirtualBox dockerd[2880]: time="2022-04-07T18:05:04.262804437+03:00" level=warning msg="Your>
+апр 07 18:05:04 mist-VirtualBox dockerd[2880]: time="2022-04-07T18:05:04.263242601+03:00" level=warning msg="Your>
+апр 07 18:05:04 mist-VirtualBox dockerd[2880]: time="2022-04-07T18:05:04.264101810+03:00" level=info msg="Loading>
+апр 07 18:05:04 mist-VirtualBox dockerd[2880]: time="2022-04-07T18:05:04.393842970+03:00" level=info msg="Default>
+апр 07 18:05:04 mist-VirtualBox dockerd[2880]: time="2022-04-07T18:05:04.437688269+03:00" level=info msg="Loading>
+апр 07 18:05:04 mist-VirtualBox dockerd[2880]: time="2022-04-07T18:05:04.524528449+03:00" level=info msg="Docker >
+апр 07 18:05:04 mist-VirtualBox dockerd[2880]: time="2022-04-07T18:05:04.525069004+03:00" level=info msg="Daemon >
+апр 07 18:05:04 mist-VirtualBox systemd[1]: Started Docker Application Container Engine.
+апр 07 18:05:04 mist-VirtualBox dockerd[2880]: time="2022-04-07T18:05:04.599607171+03:00" level=info msg="API lis>
+lines 1-21/21 (END)
+
+mist@mist-VirtualBox:~$ sudo docker run -d -p 80:80 docker/getting-started
+Unable to find image 'docker/getting-started:latest' locally
+latest: Pulling from docker/getting-started
+59bf1c3509f3: Pull complete
+8d6ba530f648: Pull complete
+5288d7ad7a7f: Pull complete
+39e51c61c033: Pull complete
+ee6f71c6f4a8: Pull complete
+f2303c6c8865: Pull complete
+0645fddcff40: Pull complete
+d05ee95f5d2f: Pull complete
+
+mist@mist-VirtualBox:~$ sudo docker ps -a
+CONTAINER ID   IMAGE                    COMMAND                  CREATED         STATUS    PORTS     NAMES
+bdcaf380106d   docker/getting-started   "/docker-entrypoint.…"   5 minutes ago   Created             great_feistel
+mist@mist-VirtualBox:~$
+
+
+3. Запустить контейнер с Ubuntu.
+
+
+mist@mist-VirtualBox:~$ sudo docker run -it ubuntu
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+e0b25ef51634: Pull complete
+Digest: sha256:9101220a875cee98b016668342c489ff0674f247f6ca20dfc91b91c0f28581ae
+Status: Downloaded newer image for ubuntu:latest
+root@4614ca0e5daf:/#  hello world
+root@4614ca0e5daf:/# exit
+
+
+
+4. * Используя Dockerfile, собрать связку nginx + PHP-FPM в одном контейнере.
+
+Хотел написать вот так но не осталось свободного места а время до конца сдачи 15 минут ( 
+
+не уверен в правильности команд, и не понял что делает команда: VOLUME "/var/www/html"
+
+cat > Dockerfile_lesson_8
+FROM ubuntu:latest
+MAINTAINER Shubin_ostap
+RUN apt-get update
+RUN apt-get update nginx -y
+RUN apt-get install python3 -y
+RUN mkdir /lesson_8/python3
+EXPOSE 80
+CMD /usr/sbin/nginx -g "daemon off;" ; python3 -D
+
+sudo docker build -t python3
+
+sudo docker images
