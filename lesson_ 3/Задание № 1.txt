@@ -1,0 +1,40 @@
+mist@mist-VirtualBox:~$ # Задание № 1
+mist@mist-VirtualBox:~$ ls /home
+mist
+mist@mist-VirtualBox:~$ sudo adduser user1
+Добавляется пользователь «user1» ...
+Добавляется новая группа «user1» (1001) ...
+Добавляется новый пользователь «user1» (1001) в группу «user1» ...
+Создаётся домашний каталог «/home/user1» ...
+Копирование файлов из «/etc/skel» ...
+Новый пароль :
+Повторите ввод нового пароля :
+passwd: пароль успешно обновлён
+Изменение информации о пользователе user1
+Введите новое значение или нажмите ENTER для выбора значения по умолчанию
+        Полное имя []: user1
+        Номер комнаты []:
+        Рабочий телефон []:
+        Домашний телефон []:
+        Другое []:
+Данная информация корректна? [Y/n] y
+mist@mist-VirtualBox:~$ ls /home
+mist  user1
+mist@mist-VirtualBox:~$ sudo userdel -r user1
+userdel: почтовый ящик user1 (/var/mail/user1) не найден
+mist@mist-VirtualBox:~$ sudo userdel user1
+userdel: пользователь «user1» не существует
+mist@mist-VirtualBox:~$ ls /home
+mist
+mist@mist-VirtualBox:~$ tail /etc/group
+geoclue:x:127:
+pulse:x:128:
+pulse-access:x:129:
+gdm:x:130:
+sssd:x:131:
+lxd:x:132:mist
+mist:x:1000:
+sambashare:x:133:mist
+systemd-coredump:x:999:
+vboxsf:x:998:
+mist@mist-VirtualBox:~$
