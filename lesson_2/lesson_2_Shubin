@@ -1,0 +1,151 @@
+.Создать каталоги students и mentors в домашней директории, а в них — текстовые файлы students_list.txt и mentors_list.txt соответственно.
+Открыть созданные в п.1 файлы в любом текстовом редакторе и заполнить их (в соответствии с названием) списком Ваших одногруппников и наставников на данном потоке.
+Переместите файл mentors_list.txt в папку students.
+Удалите папку mentors.
+Переименуйте папку students в students_and_mentors.
+Удалите папку students_and_mentors вместе с содержимым.
+Подключитесь к машине с Linux по протоколу SSH.
+(*) Используя дополнительный материал, настроить авторизацию по SSH с использованием ключей.
+В качестве решения необходимо прислать текстовый файл (*.txt) с набором используемых команд и их результатами (можно скопировать
+
+
+
+
+
+mist@mist-VirtualBox:~$ ls
+ Видео       Загрузки      Музыка         'Рабочий стол'
+ Документы   Изображения   Общедоступные   Шаблоны
+mist@mist-VirtualBox:~$ mkdir {students, mentors}
+mist@mist-VirtualBox:~$ ls
+ mentors}     Видео       Загрузки      Музыка         'Рабочий стол'
+ {students,   Документы   Изображения   Общедоступные   Шаблоны
+mist@mist-VirtualBox:~$ 
+mist@mist-VirtualBox:~$ ls
+ Видео       Загрузки      Музыка         'Рабочий стол'
+ Документы   Изображения   Общедоступные   Шаблоны
+mist@mist-VirtualBox:~$ mkdir studenst, mentors
+mist@mist-VirtualBox:~$ ls
+ mentors     Видео       Загрузки      Музыка         'Рабочий стол'
+ studenst,   Документы   Изображения   Общедоступные   Шаблоны
+mist@mist-VirtualBox:~$ 
+mist@mist-VirtualBox:~$ ls
+ Видео       Загрузки      Музыка         'Рабочий стол'
+ Документы   Изображения   Общедоступные   Шаблоны
+mist@mist-VirtualBox:~$ mkdir students mentors
+mist@mist-VirtualBox:~$ ls
+ mentors    Видео       Загрузки      Музыка         'Рабочий стол'
+ students   Документы   Изображения   Общедоступные   Шаблоны
+mist@mist-VirtualBox:~$ cd students/
+mist@mist-VirtualBox:~/students$ ls
+mist@mist-VirtualBox:~/students$ echo > students_list.txt
+mist@mist-VirtualBox:~/students$ ls
+students_list.txt
+mist@mist-VirtualBox:~/students$ cd ..
+mist@mist-VirtualBox:~$ ls
+ mentors    Видео       Загрузки      Музыка         'Рабочий стол'
+ students   Документы   Изображения   Общедоступные   Шаблоны
+mist@mist-VirtualBox:~$ cd mentors/
+mist@mist-VirtualBox:~/mentors$ ls
+mist@mist-VirtualBox:~/mentors$ echo > mentors_list.txt
+mist@mist-VirtualBox:~/mentors$ ls
+mentors_list.txt
+mist@mist-VirtualBox:~/mentors$ vi mentors_list.txt 
+mist@mist-VirtualBox:~/mentors$ cd ..
+mist@mist-VirtualBox:~$ cd students/
+mist@mist-VirtualBox:~/students$ vi students_list.txt 
+mist@mist-VirtualBox:~/students$ head -n10 students_list.txt 
+Шубин Остап
+Полина Сидоренко
+Светлана Масленникова
+Гордей Шаповалов
+Александр Мизяков
+Максим Антипов
+Суслин Александр
+Макс Шихов
+Сергей стриж 
+Мария Доброскокина
+mist@mist-VirtualBox:~/students$ cd ..
+mist@mist-VirtualBox:~$ cd mentors/
+mist@mist-VirtualBox:~/mentors$ cat mentors_list.txt 
+Юрий Тигунов
++1 Наставник
++1 Наставник
+
+mist@mist-VirtualBox:~/mentors$ mv mentors_list.txt /s
+sbin/     snap/     srv/      swapfile  sys/      
+mist@mist-VirtualBox:~/mentors$ mv mentors_list.txt ../students/
+mist@mist-VirtualBox:~/mentors$ cd ..
+mist@mist-VirtualBox:~$ cd /s
+sbin/ snap/ srv/  sys/  
+mist@mist-VirtualBox:~$ cd students/
+mist@mist-VirtualBox:~/students$ ls
+mentors_list.txt  students_list.txt
+mist@mist-VirtualBox:~/students$ 
+
+mist@mist-VirtualBox:~/students$ cd ..
+mist@mist-VirtualBox:~$ ls
+ mentors    Видео       Загрузки      Музыка         'Рабочий стол'
+ students   Документы   Изображения   Общедоступные   Шаблоны
+mist@mist-VirtualBox:~$ rm -r mentors/
+mist@mist-VirtualBox:~$ ls
+ students   Документы   Изображения   Общедоступные   Шаблоны
+ Видео      Загрузки    Музыка       'Рабочий стол'
+mist@mist-VirtualBox:~$ 
+
+mist@mist-VirtualBox:~$ mv students students_and_mentors
+mist@mist-VirtualBox:~$ ls
+ students_and_mentors   Документы   Изображения   Общедоступные   Шаблоны
+ Видео                  Загрузки    Музыка       'Рабочий стол'
+
+mist@mist-VirtualBox:~$ rm -r students_and_mentors/
+mist@mist-VirtualBox:~$ ls
+ Видео       Загрузки      Музыка         'Рабочий стол'
+ Документы   Изображения   Общедоступные   Шаблоны
+mist@mist-VirtualBox:~$ 
+
+
+
+
+
+mist@mist-VirtualBox:~$ ifconfig
+
+Команда «ifconfig» не найдена, но может быть установлена с помощью:
+
+sudo apt install net-tools
+
+mist@mist-VirtualBox:~$ sudo apt install net-tools
+mist@mist-VirtualBox:~$ sudo apt install ssh
+mist@mist-VirtualBox:~$ service ssh status
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: >
+     Active: active (running) since Wed 2022-03-02 13:47:32 MSK; 20s ago
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+   Main PID: 5756 (sshd)
+      Tasks: 1 (limit: 2295)
+     Memory: 1.0M
+     CGroup: /system.slice/ssh.service
+             └─5756 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+
+мар 02 13:47:32 mist-VirtualBox systemd[1]: Starting OpenBSD Secure Shell serv>
+мар 02 13:47:32 mist-VirtualBox sshd[5756]: Server listening on 0.0.0.0 port 2>
+мар 02 13:47:32 mist-VirtualBox sshd[5756]: Server listening on :: port 22.
+мар 02 13:47:32 mist-VirtualBox systemd[1]: Started OpenBSD Secure Shell serve>
+...skipping...
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: >
+     Active: active (running) since Wed 2022-03-02 13:47:32 MSK; 20s ago
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+   Main PID: 5756 (sshd)
+      Tasks: 1 (limit: 2295)
+     Memory: 1.0M
+     CGroup: /system.slice/ssh.service
+             └─5756 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+
+мар 02 13:47:32 mist-VirtualBox systemd[1]: Starting OpenBSD Secure Shell serv>
+мар 02 13:47:32 mist-VirtualBox sshd[5756]: Server listening on 0.0.0.0 port 2>
+мар 02 13:47:32 mist-VirtualBox sshd[5756]: Server listening on :: port 22.
+мар 02 13:47:32 mist-VirtualBox systemd[1]: Started OpenBSD Secure Shell serve>
+~
+
